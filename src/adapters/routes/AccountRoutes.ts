@@ -27,8 +27,8 @@ function NewAccountRouters(
   const router = Router();
 
   // Private Routes
-  router.post('/accounts', authMiddleware.authenticate.bind(authMiddleware), authMiddleware.isAdmin.bind(authMiddleware), accountController.create);
-  router.post('/accounts/reset-password', authMiddleware.authenticate.bind(authMiddleware), authMiddleware.isAdmin.bind(authMiddleware), accountController.resetPassword);
+  router.post('/accounts', authMiddleware.authenticate.bind(authMiddleware), authMiddleware.isAdmin.bind(authMiddleware), (req, res) => accountController.create(req, res));
+  router.post('/accounts/reset-password', authMiddleware.authenticate.bind(authMiddleware), authMiddleware.isAdmin.bind(authMiddleware), (req, res) => accountController.resetPassword(req, res));
 
   // Public Routes
   router.post('/accounts/login', (req, res) => accountController.login(req, res));

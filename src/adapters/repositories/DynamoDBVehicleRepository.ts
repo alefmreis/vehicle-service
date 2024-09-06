@@ -1,8 +1,9 @@
 import winston from 'winston';
 
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { DeleteItemCommand, DynamoDBClient, GetItemCommand, PutItemCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { DeleteItemCommand, DynamoDBClient, GetItemCommand, PutItemCommand, ScanCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
 
+import CursorPage from '../../utils/Pagination';
 import IVehicleRepository from '../../domain/repositories/VehicleRepository';
 import Vehicle from '../../domain/entities/Vehicles';
 
@@ -16,6 +17,44 @@ class DynamoDBVehicleRepository implements IVehicleRepository {
   constructor(dbClient: DynamoDBClient, logger: winston.Logger) {
     this.dbClient = dbClient;
     this.logger = logger;
+  }
+
+  async getPaged(pageLimit: number, pageToken?: string): Promise<{ data: Vehicle[], pagination: CursorPage }> {
+    try {
+      this.logger.debug('gettting vehicles from db');
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const params: any = {
+        TableName: this.tableName,
+        Limit: pageLimit,
+      };
+
+      if (pageToken) {
+        params.ExclusiveStartKey = marshall({ id: pageToken });
+      }
+
+      const command = new ScanCommand(params);
+      const result = await this.dbClient.send(command);
+
+      const vehicles = result.Items?.map(item => {
+        const itemData = unmarshall(item) as Vehicle;
+        const vehicle = Vehicle.createFromDatabase(itemData.id, itemData.name, itemData.brand, itemData.model);
+        return vehicle;
+      }) || [];
+
+      const pagination = (result.LastEvaluatedKey) ? unmarshall(result.LastEvaluatedKey) : null;
+
+      return {
+        data: vehicles,
+        pagination: {
+          nextPageToken: (pagination) ? pagination.id : null
+        }
+      };
+
+    } catch (error) {
+      this.logger.error('Failed to get vehicles from database', error);
+      throw new RepositoryError('Failed to get vehicles from db');
+    }
   }
 
   async getById(id: string): Promise<Vehicle | null> {
@@ -75,7 +114,7 @@ class DynamoDBVehicleRepository implements IVehicleRepository {
         ExpressionAttributeNames: {
           '#name': 'name',
           '#brand': 'brand',
-          '#model': 'model'          
+          '#model': 'model'
         },
         ExpressionAttributeValues: marshall({
           ':name': vehicle.name,
@@ -98,15 +137,15 @@ class DynamoDBVehicleRepository implements IVehicleRepository {
   async deleteById(id: string): Promise<void> {
     try {
       this.logger.debug(`deleting vehicle: ${id}`);
-  
+
       const params = {
         TableName: this.tableName,
         Key: marshall({ id })
-      };  
-    
+      };
+
       const command = new DeleteItemCommand(params);
       await this.dbClient.send(command);
-  
+
       this.logger.debug(`account ${id} successfully deleted`);
     } catch (error) {
       this.logger.error('Failed to delete vehicle', error);

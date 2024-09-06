@@ -5,7 +5,7 @@ import { validate } from 'class-validator';
 import IVehicleRepository from '../../domain/repositories/VehicleRepository';
 import UpdateVehicleDTO from '../../adapters/dtos/vehicle/UpdateVehicleDTO';
 
-import { InternalServerError, NotFoundError, ServiceError, ValidationError } from '../../utils/Error';
+import { InternalServerError, NotFoundError, RepositoryError, ServiceError, ValidationError } from '../../utils/Error';
 
 class UpdateVehicleUseCase {
   private vehicleRepository: IVehicleRepository;

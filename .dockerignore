@@ -1,0 +1,10 @@
+__tests__
+iac/
+dist/
+node_modules/
+docker-compose.yml
+Dockerfile
+eslint.config.mjs
+jest.config.js
+.git
+.gitignore

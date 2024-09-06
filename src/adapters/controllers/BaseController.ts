@@ -4,11 +4,16 @@ import { Response } from 'express';
 import { ConflictError, DomainError, InternalServerError, NotFoundError, RepositoryError, ServiceError, UnauthorizedError, ValidationError } from '../../utils/Error';
 
 class BaseController {
-  public onSuccess(data: any, response: Response): Response {
+  public onSuccess(data: any, metadata: any, response: Response): Response {
     response.status(200);
-    response.json({
-      data
-    });
+
+    const responseBodyData: any = { data };
+
+    if (metadata) {
+      responseBodyData.metadata = metadata;
+    }
+
+    response.json(responseBodyData);
 
     return response;
   }
@@ -21,6 +26,7 @@ class BaseController {
 
     return response;
   }
+
 
   public onError(error: any, response: Response) {
     if (error instanceof DomainError) {

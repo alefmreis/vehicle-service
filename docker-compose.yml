@@ -1,4 +1,17 @@
+version: '3.8'
+
 services:
+  vehicle-service-api:
+      build:
+        context: .
+        dockerfile: Dockerfile
+        target: lambda
+      container_name: vehicle-service
+      ports:
+        - "8080:8080"
+      depends_on:
+      - dynamodb
+
   dynamodb:
     image: amazon/dynamodb-local
     container_name: dynamodb
@@ -10,9 +23,9 @@ services:
     ports:
       - "8001:8001"
     environment:
-      DYNAMO_ENDPOINT: "http://dynamodb:8000"
-      AWS_REGION: "us-west-2"
-      AWS_ACCESS_KEY_ID: local
-      AWS_SECRET_ACCESS_KEY: local
+      DYNAMO_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_DYNAMO_DB_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_DYNAMO_DB_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${AWS_DYNAMO_DB_ACCESS_SECRET}
     depends_on:
       - dynamodb

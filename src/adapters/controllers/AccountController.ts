@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import winston from 'winston';
 
 import { plainToInstance } from 'class-transformer';
@@ -29,7 +30,8 @@ class AccountController extends BaseController {
 
   async create(req: Request, res: Response) {
     try {
-      const account = plainToInstance(CreateAccountDTO, req.body);
+      const account = plainToInstance(CreateAccountDTO, req.body);      
+      // @ts-expect-error
       await this.createAccountUseCase.execute(account);
       this.onCreated(null, res);
     } catch (error) {
@@ -41,8 +43,9 @@ class AccountController extends BaseController {
   async login(req: Request, res: Response) {
     try {
       const credentials = plainToInstance(LoginDTO, req.body);
+      // @ts-expect-error
       const token = await this.loginUseCase.execute(credentials);
-      this.onSuccess({ data: token }, res);
+      this.onSuccess({ token }, null, res);
     } catch (error) {
       this.logger.error(error);
       this.onError(error, res);
@@ -52,8 +55,9 @@ class AccountController extends BaseController {
   async resetPassword(req: Request, res: Response) {
     try {
       const credentials = plainToInstance(ResetPasswordAccountDTO, req.body);
+      // @ts-expect-error
       await this.resetPasswordAccountUseCase.execute(credentials);
-      this.onSuccess(null, res);
+      this.onSuccess(null, null, res);
     } catch (error) {
       this.logger.error(error);
       this.onError(error, res);

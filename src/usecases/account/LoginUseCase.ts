@@ -11,10 +11,13 @@ import { InternalServerError, NotFoundError, RepositoryError, ServiceError, Unau
 
 class LoginUseCase {
   private accountRepository: IAccountRepository;
+  private jwtKey: string;
   private logger: winston.Logger;
 
-  constructor(accountRepository: IAccountRepository, logger: winston.Logger) {
+
+  constructor(accountRepository: IAccountRepository, jwtKey: string, logger: winston.Logger) {
     this.accountRepository = accountRepository;
+    this.jwtKey = jwtKey;
     this.logger = logger;
   }
 
@@ -41,10 +44,10 @@ class LoginUseCase {
         throw new ServiceError('Invalid credentials', UnauthorizedError);
       }
 
-      const data = jwt.sign({ email: account.email, admin: account.isAdmin }, 'secret', {
+      const data = jwt.sign({ email: account.email, admin: account.isAdmin }, this.jwtKey, {
         expiresIn: '3h'
       });
-      
+
       this.logger.info('acount logged in successfully');
       return data;
     } catch (error) {

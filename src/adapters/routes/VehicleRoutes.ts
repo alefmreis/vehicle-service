@@ -8,11 +8,13 @@ import CreateVehicleUseCase from '../../usecases/vehicle/CreateVehicleUseCase';
 import UpdateVehicleUseCase from '../../usecases/vehicle/UpdateVehicleUseCase';
 import GetVehicleByIdUseCase from '../../usecases/vehicle/GetVehicleByIdUseCase';
 import DeleteVehicleByIdUseCase from '../../usecases/vehicle/DeleteVehicleByIdUseCase';
+import GetVehiclesUseCase from '../../usecases/vehicle/GetVehiclesUseCase';
 
 
 function NewVehicleRouters(
   createVehicleUseCase: CreateVehicleUseCase,
   updateVehicleUseCase: UpdateVehicleUseCase,
+  getVehiclesUseCase: GetVehiclesUseCase,
   getByIdUseCase: GetVehicleByIdUseCase,
   deleteByIdUseCase: DeleteVehicleByIdUseCase,
   logger: winston.Logger,
@@ -22,6 +24,7 @@ function NewVehicleRouters(
   const vehicleController = new VehicleController(
     createVehicleUseCase,
     updateVehicleUseCase,
+    getVehiclesUseCase,
     getByIdUseCase,
     deleteByIdUseCase,
     logger
@@ -44,6 +47,10 @@ function NewVehicleRouters(
     authMiddleware.authenticate.bind(authMiddleware),
     authMiddleware.isAdmin.bind(authMiddleware),
     (req, res) => vehicleController.deleteById(req, res));
+
+  router.get('/vehicles',
+    authMiddleware.authenticate.bind(authMiddleware),
+    (req, res) => vehicleController.getPaged(req, res));
 
   router.get('/vehicles/:id',
     authMiddleware.authenticate.bind(authMiddleware),
