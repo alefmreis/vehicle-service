@@ -6,12 +6,12 @@ variable "function_name" {
 variable "function_timeout" {
   description = "Lambda function timeout"
   type        = number
-  default = 10
+  default     = 10
 }
 
 variable "function_image_uri" {
   description = "Lambda function image uri"
-  type = string
+  type        = string
 }
 
 variable "function_environment_variables" {
@@ -22,7 +22,7 @@ variable "function_environment_variables" {
   })
   default = {
     JWT_SECRET_KEY = ""
-    LOG_LEVEL = "info"
+    LOG_LEVEL      = "info"
   }
 }
 
