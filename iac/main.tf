@@ -53,6 +53,7 @@ module "vehicle_service_lambda" {
   function_environment_variables = {
     JWT_SECRET_KEY = ""
     LOG_LEVEL      = "info"
+    AWS_DYNAMO_DB_REGION = "us-east-2"
   }
 }
 

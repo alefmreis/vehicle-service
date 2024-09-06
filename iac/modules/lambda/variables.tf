@@ -19,10 +19,12 @@ variable "function_environment_variables" {
   type = object({
     JWT_SECRET_KEY = string
     LOG_LEVEL      = string
+    AWS_DYNAMO_DB_REGION = string
   })
   default = {
     JWT_SECRET_KEY = ""
     LOG_LEVEL      = "info"
+    AWS_DYNAMO_DB_REGION = "us-east-2"
   }
 }
 
