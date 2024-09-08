@@ -146,7 +146,7 @@ class DynamoDBVehicleRepository implements IVehicleRepository {
       const command = new DeleteItemCommand(params);
       await this.dbClient.send(command);
 
-      this.logger.debug(`account ${id} successfully deleted`);
+      this.logger.debug(`vehicle ${id} successfully deleted`);
     } catch (error) {
       this.logger.error('Failed to delete vehicle', error);
       throw new RepositoryError(`Failed to delete vehicle: ${id}`);

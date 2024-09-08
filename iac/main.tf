@@ -103,7 +103,6 @@ resource "aws_apigatewayv2_integration" "vehicle_service_lambda_gateway_integrat
   integration_method = "POST"
 }
 
-
 resource "aws_apigatewayv2_route" "vehicle_service_lambda_gateway_api_route" {
   api_id    = module.vehicle_service_api_gateway.api_gateway_id
   route_key = "ANY /{proxy+}" 

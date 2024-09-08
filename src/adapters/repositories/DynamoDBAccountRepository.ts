@@ -1,7 +1,7 @@
 import winston from 'winston';
 
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
-import { DynamoDBClient, PutItemCommand, QueryCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { DeleteItemCommand, DynamoDBClient, PutItemCommand, QueryCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
 
 import IAccountRepository from '../../domain/repositories/AccountRepository';
 import Account from '../../domain/entities/Account';
@@ -100,6 +100,25 @@ class DynamoDBAccountRepository implements IAccountRepository {
     } catch (error) {
       this.logger.error('Failed to update account at db', error);
       throw new RepositoryError('Failed to update account at db');
+    }
+  }
+
+  async deleteById(id: string) {
+    try {
+      this.logger.debug(`deleting account: ${id}`);
+
+      const params = {
+        TableName: this.tableName,
+        Key: marshall({ id })
+      };
+
+      const command = new DeleteItemCommand(params);
+      await this.dbClient.send(command);
+
+      this.logger.debug(`account ${id} successfully deleted`);
+    } catch (error) {
+      this.logger.error('Failed to delete account', error);
+      throw new RepositoryError(`Failed to delete account: ${id}`);
     }
   }
 }
