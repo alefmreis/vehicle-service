@@ -14,6 +14,9 @@ const testConfig: TestConfig = {
   JWTSecretKey: process.env.JWT_SECRET_KEY || '',
 };
 
+
+console.log('TEST CONFIG', testConfig)
+
 export default testConfig;
 
 

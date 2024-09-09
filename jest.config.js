@@ -4,7 +4,8 @@
 
 module.exports = {
   preset: 'ts-jest',
-  setupFiles: ['./jest.setup.ts'],
+  // eslint-disable-next-line no-undef
+  setupFiles: [`${__dirname}/jest.setup.ts`],
   testEnvironment: 'node',
   testMatch: ['**/*.test.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
