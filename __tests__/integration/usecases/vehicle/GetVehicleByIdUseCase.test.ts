@@ -9,7 +9,6 @@ import Vehicle from '../../../../src/domain/entities/Vehicles';
 import { ServiceError, NotFoundError } from '../../../../src/utils/Error';
 
 describe('GetVehicleByIdUseCase Integration Test', () => {
-  console.log('CONFIG', config)
   const dynamoDBClient = NewDynamoDB(config.AWSDynamoDBEndpoint, config.AWSDynamoDBRegion, config.AWSDynamoDBAccessKey, config.AWSDynamoDBAccessSecret);
   const logger = NewLogger('warn', 'integration-test');
   const vehicleRepository = new DynamoDBVehicleRepository(dynamoDBClient, logger);
