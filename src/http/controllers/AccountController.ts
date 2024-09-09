@@ -5,11 +5,11 @@ import { plainToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
 
 import BaseController from './BaseController';
-import CreateAccountDTO from '../dtos/account/CreateAccountDTO';
+import CreateAccountDTO from '../../usecases/_dtos/account/CreateAccountDTO';
 import CreateAccountUseCase from '../../usecases/account/CreateAccountUseCase';
-import LoginDTO from '../dtos/account/LoginDTO';
+import LoginDTO from '../../usecases/_dtos/account/LoginDTO';
 import LoginUseCase from '../../usecases/account/LoginUseCase';
-import ResetPasswordAccountDTO from '../dtos/account/ResetPasswordAccountDTO';
+import ResetPasswordAccountDTO from '../../usecases/_dtos/account/ResetPasswordAccountDTO';
 import ResetPasswordAccountUseCase from '../../usecases/account/ResetPasswordAccountUseCase';
 
 

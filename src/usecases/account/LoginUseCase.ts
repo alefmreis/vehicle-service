@@ -4,7 +4,7 @@ import winston from 'winston';
 import { validate } from 'class-validator';
 
 import IAccountRepository from '../../domain/repositories/AccountRepository';
-import LoginDTO from '../../adapters/dtos/account/LoginDTO';
+import LoginDTO from '../_dtos/account/LoginDTO';
 
 import { InternalServerError, NotFoundError, RepositoryError, ServiceError, UnauthorizedError, ValidationError } from '../../utils/Error';
 

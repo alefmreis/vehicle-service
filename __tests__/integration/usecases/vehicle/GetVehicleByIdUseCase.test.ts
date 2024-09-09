@@ -1,6 +1,6 @@
 import config from '../../../test.config';
 
-import DynamoDBVehicleRepository from '../../../../src/adapters/repositories/DynamoDBVehicleRepository';
+import DynamoDBVehicleRepository from '../../../../src/infrastructure/repositories/DynamoDBVehicleRepository';
 import GetVehicleByIdUseCase from '../../../../src/usecases/vehicle/GetVehicleByIdUseCase';
 import NewDynamoDB from '../../../../src/infrastructure/DynamoDBClient';
 import NewLogger from '../../../../src/infrastructure/Logger';

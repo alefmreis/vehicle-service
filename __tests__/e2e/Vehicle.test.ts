@@ -3,14 +3,14 @@ import request from 'supertest';
 import server from '../../src/app';
 import config from '../test.config';
 
-import DynamoDBVehicleRepository from '../../src/adapters/repositories/DynamoDBVehicleRepository';
+import DynamoDBVehicleRepository from '../../src/infrastructure/repositories/DynamoDBVehicleRepository';
 import NewDynamoDB from '../../src/infrastructure/DynamoDBClient';
 import NewLogger from '../../src/infrastructure/Logger';
 import Vehicle from '../../src/domain/entities/Vehicles';
-import DynamoDBAccountRepository from '../../src/adapters/repositories/DynamoDBAccountRepository';
+import DynamoDBAccountRepository from '../../src/infrastructure/repositories/DynamoDBAccountRepository';
 import Account from '../../src/domain/entities/Account';
 import LoginUseCase from '../../src/usecases/account/LoginUseCase';
-import LoginDTO from '../../src/adapters/dtos/account/LoginDTO';
+import LoginDTO from '../../src/usecases/_dtos/account/LoginDTO';
 
 
 describe('/vehicles/:id', () => {

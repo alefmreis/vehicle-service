@@ -3,7 +3,7 @@ import winston from 'winston';
 import { validate } from 'class-validator';
 
 import Account from '../../domain/entities/Account';
-import CreateAccountDTO from '../../adapters/dtos/account/CreateAccountDTO';
+import CreateAccountDTO from '../_dtos/account/CreateAccountDTO';
 import IAccountRepository from '../../domain/repositories/AccountRepository';
 
 import { ConflictError, InternalServerError, RepositoryError, ServiceError, ValidationError } from '../../utils/Error';

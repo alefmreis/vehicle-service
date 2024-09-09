@@ -9,10 +9,10 @@ import DeleteVehicleByIdUseCase from '../../usecases/vehicle/DeleteVehicleByIdUs
 import GetVehicleByIdUseCase from '../../usecases/vehicle/GetVehicleByIdUseCase';
 import UpdateVehicleUseCase from '../../usecases/vehicle/UpdateVehicleUseCase';
 import BaseController from './BaseController';
-import CreateVehicleDTO from '../dtos/vehicle/CreateVehicleDTO';
-import UpdateVehicleDTO from '../dtos/vehicle/UpdateVehicleDTO';
+import CreateVehicleDTO from '../../usecases/_dtos/vehicle/CreateVehicleDTO';
+import UpdateVehicleDTO from '../../usecases/_dtos/vehicle/UpdateVehicleDTO';
 import GetVehiclesUseCase from '../../usecases/vehicle/GetVehiclesUseCase';
-import GetVehiclesDTO from '../dtos/vehicle/GetVehiclesDTO';
+import GetVehiclesDTO from '../../usecases/_dtos/vehicle/GetVehiclesDTO';
 
 class VehicleController extends BaseController {
   private createVehicleUseCase: CreateVehicleUseCase;

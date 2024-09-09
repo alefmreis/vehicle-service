@@ -1,7 +1,7 @@
 import winston from 'winston';
 
 import CursorPage from '../../utils/Pagination';
-import GetVehiclesDTO from '../../adapters/dtos/vehicle/GetVehiclesDTO';
+import GetVehiclesDTO from '../_dtos/vehicle/GetVehiclesDTO';
 import IVehicleRepository from '../../domain/repositories/VehicleRepository';
 
 import { InternalServerError, RepositoryError, ServiceError } from '../../utils/Error';

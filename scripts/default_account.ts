@@ -6,7 +6,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 import Account from '../src/domain/entities/Account';
 import NewLogger from '../src/infrastructure/Logger';
 import NewDynamoDB from '../src/infrastructure/DynamoDBClient';
-import DynamoDBAccountRepository from '../src/adapters/repositories/DynamoDBAccountRepository';
+import DynamoDBAccountRepository from '../src/infrastructure/repositories/DynamoDBAccountRepository';
 
 
 (async () => {

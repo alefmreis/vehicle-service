@@ -2,7 +2,7 @@ import winston from 'winston';
 
 import { validate } from 'class-validator';
 
-import CreateVehicleDTO from '../../adapters/dtos/vehicle/CreateVehicleDTO';
+import CreateVehicleDTO from '../_dtos/vehicle/CreateVehicleDTO';
 import IVehicleRepository from '../../domain/repositories/VehicleRepository';
 import Vehicle from '../../domain/entities/Vehicles';
 

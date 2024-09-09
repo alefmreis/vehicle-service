@@ -3,7 +3,7 @@ import winston from 'winston';
 import { validate } from 'class-validator';
 
 import IAccountRepository from '../../domain/repositories/AccountRepository';
-import ResetPasswordAccountDTO from '../../adapters/dtos/account/ResetPasswordAccountDTO';
+import ResetPasswordAccountDTO from '../_dtos/account/ResetPasswordAccountDTO';
 
 import { InternalServerError, NotFoundError, RepositoryError, ServiceError, ValidationError } from '../../utils/Error';
 

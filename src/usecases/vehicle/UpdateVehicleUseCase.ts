@@ -3,7 +3,7 @@ import winston from 'winston';
 import { validate } from 'class-validator';
 
 import IVehicleRepository from '../../domain/repositories/VehicleRepository';
-import UpdateVehicleDTO from '../../adapters/dtos/vehicle/UpdateVehicleDTO';
+import UpdateVehicleDTO from '../_dtos/vehicle/UpdateVehicleDTO';
 
 import { InternalServerError, NotFoundError, RepositoryError, ServiceError, ValidationError } from '../../utils/Error';
 
