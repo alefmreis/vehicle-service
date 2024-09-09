@@ -149,6 +149,9 @@ The infrastructure layer handles external services like databases, APIs, or the 
 - **Repositories**: Concrete implementations of domain-level repositories.
 - **HTTP**: Express-specific logic for handling routes, controllers, and middlewares.
 
+## Application Flow
+![Application Flow](./docs/api_flow.png "Application Flow")
+
 ## Routes
 
 ### Accounts
