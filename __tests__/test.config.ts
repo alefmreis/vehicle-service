@@ -1,8 +1,3 @@
-import dotenv from 'dotenv';
-import path from 'path';
-
-dotenv.config({ path: path.resolve(__dirname, '../.env.test') });
-
 interface TestConfig {
   AWSDynamoDBAccessKey: string
   AWSDynamoDBAccessSecret: string
@@ -16,7 +11,7 @@ const testConfig: TestConfig = {
   AWSDynamoDBAccessSecret: process.env.AWS_DYNAMO_DB_ACCESS_SECRET || '',
   AWSDynamoDBEndpoint: process.env.AWS_DYNAMO_DB_ENDPOINT || '',
   AWSDynamoDBRegion: process.env.AWS_DYNAMO_DB_REGION || '',
-  JWTSecretKey: process.env.JWT_SECRET_KEY || ''
+  JWTSecretKey: process.env.JWT_SECRET_KEY || '',
 };
 
 export default testConfig;

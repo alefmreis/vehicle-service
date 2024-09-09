@@ -52,7 +52,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env.test') });
     await dynamoDB.createTable(accountsTableParams).promise();
 
     const vehiclesTableParams: DynamoDB.CreateTableInput = {
-      TableName: 'vehicle',
+      TableName: 'vehicles',
       KeySchema: [
         { AttributeName: 'id', KeyType: 'HASH' } // Partition key
       ],
