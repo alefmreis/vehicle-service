@@ -24,7 +24,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create DynamoDB app tables
+      - name: Run lint
+        run: npm run lint
+
+      - name: Create dynamo db app tables
         run: npm run script:dynamodb_tables
 
       - name: Run Tests
