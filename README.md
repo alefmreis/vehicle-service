@@ -12,9 +12,8 @@ This project is a RESTful API built in TypeScript, following Clean Architecture 
   - [Domain Layer](#domain-layer)
   - [Application Layer](#application-layer)
   - [Infrastructure Layer](#infrastructure-layer)
-  - [Main Layer](#main-layer)
+- [Application Flow](#application-flow)
 - [Routes](#routes)
-- [License](#license)
 
 ## Project Structure
 
