@@ -20,7 +20,6 @@ import GetVehicleByIdUseCase from './usecases/vehicle/GetVehicleByIdUseCase';
 import DeleteVehicleByIdUseCase from './usecases/vehicle/DeleteVehicleByIdUseCase';
 import GetVehiclesUseCase from './usecases/vehicle/GetVehiclesUseCase';
 
-
 const app = express();
 
 const logger = NewLogger(config.LogLevel, 'vehicle-service-api');
@@ -35,7 +34,7 @@ const vehicleRepository = new DynamoDBVehicleRepository(db, logger);
 
 // use cases
 const createAccountUseCase = new CreateAccountUseCase(accountRepository, logger);
-const loginUseCase = new LoginUseCase(accountRepository, config.JWTSecretKey,logger);
+const loginUseCase = new LoginUseCase(accountRepository, config.JWTSecretKey, logger);
 const resetPasswordAccountUseCase = new ResetPasswordAccountUseCase(accountRepository, logger);
 const createVehicleUseCase = new CreateVehicleUseCase(vehicleRepository, logger);
 const updateVehicleUseCase = new UpdateVehicleUseCase(vehicleRepository, logger);
