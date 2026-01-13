@@ -2,6 +2,9 @@ import 'reflect-metadata';
 
 import express from 'express';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 
 import config from './config/server.config';
 import NewLogger from './infrastructure/Logger';
@@ -24,6 +27,19 @@ const app = express();
 
 const logger = NewLogger(config.LogLevel, 'vehicle-service-api');
 const db = NewDynamoDB(config.AWSDynamoDBEndpoint, config.AWSDynamoDBRegion, config.AWSDynamoDBAccessKey, config.AWSDynamoDBAccessSecret);
+
+// Security middlewares
+app.use(helmet()); // Add security headers
+app.use(cors()); // Enable CORS with default settings
+
+// Rate limiting for authentication endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Limit each IP to 5 requests per windowMs
+  message: 'Too many authentication attempts, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // middlewares
 const authMiddleware = new AuthMiddleware(config.JWTSecretKey, logger);
@@ -48,7 +64,8 @@ const accountRoutes = NewAccountRouters(
   loginUseCase,
   resetPasswordAccountUseCase,
   logger,
-  authMiddleware
+  authMiddleware,
+  authLimiter
 );
 
 const vehicleRoutes = NewVehicleRouters(

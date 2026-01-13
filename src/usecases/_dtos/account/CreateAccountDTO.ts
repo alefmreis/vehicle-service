@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 class CreateAccountDTO {
   @Expose({ name: 'email' })
@@ -20,6 +20,7 @@ class CreateAccountDTO {
   @Expose({ name: 'password' })
   @IsNotEmpty()
   @IsString()
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
   public password: string;
 
   constructor(name: string, email: string, isAdmin: boolean, password: string) {

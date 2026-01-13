@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-import { Router } from 'express';
+import { Router, RequestHandler } from 'express';
 
 import AccountController from '../controllers/AccountController';
 import AuthMiddleware from '../middlewares/AuthMiddleware';
@@ -15,6 +15,7 @@ function NewAccountRouters(
   resetPasswordAccoutUseCase: ResetPasswordAccountUseCase,
   logger: winston.Logger,
   authMiddleware: AuthMiddleware,
+  authLimiter: RequestHandler
 ): Router {
 
   const accountController = new AccountController(
@@ -30,8 +31,8 @@ function NewAccountRouters(
   router.post('/accounts', authMiddleware.authenticate.bind(authMiddleware), authMiddleware.isAdmin.bind(authMiddleware), (req, res) => accountController.create(req, res));
   router.post('/accounts/reset-password', authMiddleware.authenticate.bind(authMiddleware), authMiddleware.isAdmin.bind(authMiddleware), (req, res) => accountController.resetPassword(req, res));
 
-  // Public Routes
-  router.post('/accounts/login', (req, res) => accountController.login(req, res));
+  // Public Routes - with rate limiting
+  router.post('/accounts/login', authLimiter, (req, res) => accountController.login(req, res));
 
   return router;
 }
