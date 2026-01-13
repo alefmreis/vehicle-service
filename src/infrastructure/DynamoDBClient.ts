@@ -1,6 +1,14 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
+// Valid AWS region format pattern - supports multi-digit region numbers
+const AWS_REGION_PATTERN = /^[a-z]{2}-[a-z]+-\d+$|^us-gov-[a-z]+-\d+$|^cn-[a-z]+-\d+$|^local$/;
+
 function NewDynamoDB(dbEndpoint: string, dbRegion: string, dbAccessKey: string, dbSecretAccessKey: string): DynamoDBClient {
+  // Validate AWS region parameter to prevent injection attacks
+  if (!dbRegion || !AWS_REGION_PATTERN.test(dbRegion)) {
+    throw new Error('Invalid AWS region format. Expected format: us-west-2, local, etc.');
+  }
+
   return new DynamoDBClient({
     region: dbRegion,
     endpoint: dbEndpoint,

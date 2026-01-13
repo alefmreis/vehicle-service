@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-import { Router } from 'express';
+import { Router, RequestHandler } from 'express';
 
 import AuthMiddleware from '../middlewares/AuthMiddleware';
 import VehicleController from '../controllers/VehicleController';
@@ -19,6 +19,7 @@ function NewVehicleRouters(
   deleteByIdUseCase: DeleteVehicleByIdUseCase,
   logger: winston.Logger,
   authMiddleware: AuthMiddleware,
+  apiLimiter: RequestHandler
 ): Router {
 
   const vehicleController = new VehicleController(
@@ -32,27 +33,32 @@ function NewVehicleRouters(
 
   const router = Router();
 
-  // Private Routes
+  // Private Routes - all protected with rate limiting
   router.post('/vehicles',
+    apiLimiter,
     authMiddleware.authenticate.bind(authMiddleware),
     authMiddleware.isAdmin.bind(authMiddleware),
     (req, res) => vehicleController.create(req, res));
 
   router.put('/vehicles/:id',
+    apiLimiter,
     authMiddleware.authenticate.bind(authMiddleware),
     authMiddleware.isAdmin.bind(authMiddleware),
     (req, res) => vehicleController.update(req, res));
 
   router.delete('/vehicles/:id',
+    apiLimiter,
     authMiddleware.authenticate.bind(authMiddleware),
     authMiddleware.isAdmin.bind(authMiddleware),
     (req, res) => vehicleController.deleteById(req, res));
 
   router.get('/vehicles',
+    apiLimiter,
     authMiddleware.authenticate.bind(authMiddleware),
     (req, res) => vehicleController.getPaged(req, res));
 
   router.get('/vehicles/:id',
+    apiLimiter,
     authMiddleware.authenticate.bind(authMiddleware),
     (req, res) => vehicleController.getById(req, res));
 
