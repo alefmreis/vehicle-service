@@ -42,8 +42,17 @@ app.use(cors(corsOptions));
 // Rate limiting for authentication endpoints
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit each IP to 5 requests per windowMs
+  max: 5, // Limit each IP to 5 requests per windowMs for auth
   message: 'Too many authentication attempts, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate limiting for general API endpoints
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Allow more requests for general API operations
+  message: 'Too many requests, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -82,7 +91,8 @@ const vehicleRoutes = NewVehicleRouters(
   getVehicleByIdUseCase,
   deleteVehicleByIdUseCase,
   logger,
-  authMiddleware
+  authMiddleware,
+  apiLimiter
 );
 
 
