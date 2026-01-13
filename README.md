@@ -6,6 +6,7 @@ This project is a RESTful API built in TypeScript, following Clean Architecture 
 ## Table of Contents
 - [Project Structure](#project-structure)
 - [Technologies](#technologies)
+- [Security](#security)
 - [Setup Instructions](#setup-instructions)
 - [Running the Application](#running-the-application)
 - [Clean Architecture Overview](#clean-architecture-overview)
@@ -50,6 +51,19 @@ src/
 - **Express**: Web framework
 - **Node.js**: JavaScript runtime environment
 - **Jest**: Testing framework
+
+## Security
+
+This application implements multiple security measures including:
+- Rate limiting on all API endpoints
+- JWT-based authentication with secure key requirements
+- Password strength validation (minimum 8 characters)
+- HTTP security headers via Helmet.js
+- Configurable CORS protection
+- Input validation for all user inputs
+- AWS region validation
+
+For detailed security information, see [SECURITY.md](./SECURITY.md).
 
 ## Setup Instructions
 
