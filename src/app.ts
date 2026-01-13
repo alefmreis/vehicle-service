@@ -30,7 +30,14 @@ const db = NewDynamoDB(config.AWSDynamoDBEndpoint, config.AWSDynamoDBRegion, con
 
 // Security middlewares
 app.use(helmet()); // Add security headers
-app.use(cors()); // Enable CORS with default settings
+
+// Configure CORS with allowed origins from config
+const corsOptions = {
+  origin: config.CORSAllowedOrigins[0] === '*' ? '*' : config.CORSAllowedOrigins,
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 // Rate limiting for authentication endpoints
 const authLimiter = rateLimit({

@@ -1,7 +1,7 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
-// Valid AWS region format pattern
-const AWS_REGION_PATTERN = /^[a-z]{2}-[a-z]+-\d{1}$|^us-gov-[a-z]+-\d{1}$|^cn-[a-z]+-\d{1}$|^local$/;
+// Valid AWS region format pattern - supports multi-digit region numbers
+const AWS_REGION_PATTERN = /^[a-z]{2}-[a-z]+-\d+$|^us-gov-[a-z]+-\d+$|^cn-[a-z]+-\d+$|^local$/;
 
 function NewDynamoDB(dbEndpoint: string, dbRegion: string, dbAccessKey: string, dbSecretAccessKey: string): DynamoDBClient {
   // Validate AWS region parameter to prevent injection attacks
